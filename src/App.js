@@ -3,8 +3,18 @@ import "./styles.css";
 import Card from "./card";
 import Note from "./note";
 import Header from "./header";
+const m=Note.id;
+
 export default function App() {
   let [additem, setitem] = useState([]);
+   useEffect(()=>{                                    //
+    const x=JSON.parse(localStorage.getItem(m))       //
+    if(x) setitem(x)                                  //
+  },[])                                               //
+                                                      //    this is for storing the data  
+  useEffect(()=>{                                     //
+    localStorage.setItem(m,JSON.stringify(additem))   //  
+  },[additem])                                        //
   function addnote(a) {
     if (a.title === "") {
       return alert("Please Enter Title!!");
