@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import Card from "./card";
 import Note from "./note";
 import Header from "./header";
-const m=Note.id;
+const m = Note.id;
 
 export default function App() {
   let [additem, setitem] = useState([]);
-   useEffect(()=>{                                    //
-    const x=JSON.parse(localStorage.getItem(m))       //
-    if(x) setitem(x)                                  //
-  },[])                                               //
-                                                      //    this is for storing the data  
-  useEffect(()=>{                                     //
-    localStorage.setItem(m,JSON.stringify(additem))   //  
-  },[additem])                                        //
+  useEffect(() => {
+    //
+    const x = JSON.parse(localStorage.getItem(m)); //
+    if (x) setitem(x); //
+  }, []); //
+  //    this is for storing the data
+  useEffect(() => {
+    //
+    localStorage.setItem(m, JSON.stringify(additem)); //
+  }, [additem]); //
   function addnote(a) {
     if (a.title === "") {
       return alert("Please Enter Title!!");
@@ -37,19 +39,23 @@ export default function App() {
   return (
     <>
       <Header />
-      <Card passnote={addnote} />
-      <div className="App">
-        {additem.map((val, index) => {
-          return (
-            <Note
-              key={index}
-              id={index}
-              title={val.title}
-              content={val.content}
-              deleteItem={ondelete}
-            />
-          );
-        })}
+      <div className="Ap">
+        <Card passnote={addnote} />
+        <div className="App">
+          <div className="all">
+            {additem.map((val, index) => {
+              return (
+                <Note
+                  key={index}
+                  id={index}
+                  title={val.title}
+                  content={val.content}
+                  deleteItem={ondelete}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </>
   );
